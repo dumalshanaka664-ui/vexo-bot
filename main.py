@@ -15,7 +15,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     await update.message.reply_text(
-        "📊 *VEXO – Crash Signals*\n\nSmart probability-based crash signals.\nChoose an option below 👇",
+        "📊 *VEXO – Crash Signals*\nSmart probability-based crash signals.\nChoose below 👇",
         reply_markup=reply_markup,
         parse_mode="Markdown"
     )
@@ -24,25 +24,16 @@ async def menu_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
     if query.data == "signals":
-        await query.edit_message_text(
-            "📈 *Crash Signals*\n\nSignals are shared in our private channel.\nPremium users get early access 🚀",
-            parse_mode="Markdown"
-        )
+        await query.edit_message_text("📈 *Crash Signals*\nShared in private channel.\nPremium users get early access 🚀", parse_mode="Markdown")
     elif query.data == "premium":
         await query.edit_message_text(
-            "💎 *Premium Access*\n\nPrice: Rs.250 / month\n\n💳 Payment Methods:\n• eZ Cash\n• Bank Transfer\n\nAfter payment, contact support.",
+            "💎 *Premium Access*\nPrice: Rs.250 / month\n💳 Payment Methods:\n• eZ Cash\n• Bank Transfer\nAfter payment, contact support.",
             parse_mode="Markdown"
         )
     elif query.data == "contact":
-        await query.edit_message_text(
-            "📞 *Contact Support*\n\nTelegram: @VexoSupport\nResponse time: < 24 hours",
-            parse_mode="Markdown"
-        )
+        await query.edit_message_text("📞 *Contact Support*\nTelegram: @VexoSupport\nResponse time: < 24 hours", parse_mode="Markdown")
     elif query.data == "disclaimer":
-        await query.edit_message_text(
-            "⚠️ *Disclaimer*\n\nAll signals are probability-based.\nNo guaranteed profits.\nPlay responsibly.",
-            parse_mode="Markdown"
-        )
+        await query.edit_message_text("⚠️ *Disclaimer*\nAll signals are probability-based.\nNo guaranteed profits.\nPlay responsibly.", parse_mode="Markdown")
 
 def main():
     app = ApplicationBuilder().token(TOKEN).build()
