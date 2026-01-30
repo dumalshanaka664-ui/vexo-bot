@@ -2,11 +2,10 @@ import os
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
 
-import os
-TOKEN = os.environ["8100433887:AAE_FxEm5gVky7QXi6PGQzyR08C0rto-L7M"]
-print("8100433887:AAE_FxEm5gVky7QXi6PGQzyR08C0rto-L7M", TOKEN[:5], "...")  # optional: check if Railway loaded it
+# Load the token from Railway environment variables
+TOKEN = os.environ["BOT_TOKEN"]  # ⚠️ do NOT put the token directly here
 
-
+# /start command
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
         [InlineKeyboardButton("📈 Get Signals", callback_data="signals")],
@@ -25,6 +24,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         parse_mode="Markdown"
     )
 
+# Callback menu handler
 async def menu_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
@@ -40,10 +40,10 @@ async def menu_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif query.data == "premium":
         await query.edit_message_text(
             "💎 *Premium Access*\n\n"
-            "Price: $10 / month\n\n"
+            "Price: Rs.250 / month\n\n"
             "💳 Payment Methods:\n"
-            "• USDT (TRC20)\n"
-            "• Binance Pay\n\n"
+            "• eZ Cash\n"
+            "• Bank Transfer\n\n"
             "After payment, contact support.",
             parse_mode="Markdown"
         )
@@ -65,10 +65,12 @@ async def menu_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
             parse_mode="Markdown"
         )
 
+# Main function
 def main():
     app = ApplicationBuilder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CallbackQueryHandler(menu_handler))
+    print("Bot is starting... 🚀")
     app.run_polling()
 
 if __name__ == "__main__":
