@@ -2,8 +2,10 @@ import os
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
 
-# Load the token from Railway environment variables
-TOKEN = os.environ["BOT_TOKEN"] 
+# Load token safely
+TOKEN = os.environ.get("BOT_TOKEN")
+if not TOKEN:
+    raise ValueError("❌ BOT_TOKEN is not set! Please check Railway Variables.")
 
 # /start command
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -13,9 +15,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("📞 Contact Support", callback_data="contact")],
         [InlineKeyboardButton("⚠️ Disclaimer", callback_data="disclaimer")]
     ]
-
     reply_markup = InlineKeyboardMarkup(keyboard)
-
     await update.message.reply_text(
         "📊 *VEXO – Crash Signals*\n\n"
         "Smart probability-based crash signals.\n"
@@ -24,11 +24,10 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         parse_mode="Markdown"
     )
 
-# Callback menu handler
+# Menu callback handler
 async def menu_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
-
     if query.data == "signals":
         await query.edit_message_text(
             "📈 *Crash Signals*\n\n"
@@ -36,7 +35,6 @@ async def menu_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "Premium users get early access 🚀",
             parse_mode="Markdown"
         )
-
     elif query.data == "premium":
         await query.edit_message_text(
             "💎 *Premium Access*\n\n"
@@ -47,7 +45,6 @@ async def menu_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "After payment, contact support.",
             parse_mode="Markdown"
         )
-
     elif query.data == "contact":
         await query.edit_message_text(
             "📞 *Contact Support*\n\n"
@@ -55,7 +52,6 @@ async def menu_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "Response time: < 24 hours",
             parse_mode="Markdown"
         )
-
     elif query.data == "disclaimer":
         await query.edit_message_text(
             "⚠️ *Disclaimer*\n\n"
@@ -65,7 +61,6 @@ async def menu_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
             parse_mode="Markdown"
         )
 
-# Main function
 def main():
     app = ApplicationBuilder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
@@ -75,4 +70,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
