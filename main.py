@@ -2,7 +2,10 @@ import os
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
 
-TOKEN = os.environ.get("BOT_TOKEN")
+import os
+TOKEN = os.environ["8100433887:AAE_FxEm5gVky7QXi6PGQzyR08C0rto-L7M"]
+print("8100433887:AAE_FxEm5gVky7QXi6PGQzyR08C0rto-L7M", TOKEN[:5], "...")  # optional: check if Railway loaded it
+
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
