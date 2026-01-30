@@ -37,10 +37,10 @@ async def menu_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif query.data == "premium":
         await query.edit_message_text(
             "💎 *Premium Access*\n\n"
-            "Price: Rs.250 / month\n\n"
+            "Price: $10 / month\n\n"
             "💳 Payment Methods:\n"
-            "• Bank trsnsfer'
-            "• ezcash"
+            "• USDT (TRC20)\n"
+            "• Binance Pay\n\n"
             "After payment, contact support.",
             parse_mode="Markdown"
         )
@@ -70,3 +70,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
