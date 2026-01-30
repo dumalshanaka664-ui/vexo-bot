@@ -3,7 +3,7 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
 
 # Load the token from Railway environment variables
-TOKEN = os.environ["BOT_TOKEN"]  # ⚠️ do NOT put the token directly here
+TOKEN = os.environ["BOT_TOKEN"] 
 
 # /start command
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
